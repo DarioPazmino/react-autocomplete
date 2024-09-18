@@ -50,31 +50,33 @@ const Autocomplete = function () {
       <label htmlFor="search-bar">Find a University:</label>
       <input
         name="search-bar"
+        id="search-bar"
         type="text"
         value={query}
         onChange={handleChange}
         placeholder="Start typing to search universities"
       />
-      <div className="list">
+      <div className="list" data-testid="suggestions">
         {(!isLoading && suggestions.length > 0 && showList) && suggestions?.map((suggestion) => (
           <div
             key={suggestion.name}
             onClick={() => handleSelect(suggestion)}
             className={query === suggestion.name ? 'selected' : ''}
+            data-testid="suggestion"
           >
             {suggestion.name}
           </div>
         ))}
       </div>
       {Object.keys(selected).length > 0 && (
-        <div className="selected-container">
+        <div className="selected-container" data-testid="option-details">
           <h3>Name</h3>
           <span>{selected.name}</span>
           <h3>Country</h3>
           <span>{selected.country}</span>
           <h3>Domains</h3>
           {selected.domains.map(domain => (
-            <span>{domain}</span>
+            <span key={domain}>{domain}</span>
           ))}
         </div>
       )}
